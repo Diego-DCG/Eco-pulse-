@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Pulse | Análisis de la Contaminación Global</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #020617;
+            color: #f1f5f9;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+
+        .eco-gradient {
+            background: linear-gradient(135deg, #4ade80 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-eco {
+            background: linear-gradient(135deg, #4ade80 0%, #2dd4bf 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-eco:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74, 222, 128, 0.2);
+        }
+
+        .pulse-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 rgba(74, 222, 128, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+
+        /* Estilos para el nuevo simulador funcional */
+        .loading-bar {
+            width: 0%;
+            height: 4px;
+            background: #4ade80;
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navegación -->
+    <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+        <div class="text-2xl font-extrabold tracking-tighter flex items-center gap-2">
+            <i class="fa-solid fa-earth-americas text-teal-400"></i>
+            ECO<span class="text-teal-400">PULSE</span>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+            <a href="#stats" class="hover:text-teal-400 transition">Estadísticas</a>
+            <a href="#simulador" class="hover:text-teal-400 transition">Simulador</a>
+            <a href="#" class="hover:text-teal-400 transition">Soluciones</a>
+        </div>
+        <button onclick="document.getElementById('simulador').scrollIntoView({behavior: 'smooth'})" class="text-sm font-semibold bg-slate-800 px-5 py-2 rounded-full border border-slate-700 hover:bg-slate-700 transition">
+            Iniciar Análisis
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-8 py-20 text-center">
+        <div class="inline-flex items-center gap-2 bg-teal-900/30 text-teal-400 px-4 py-2 rounded-full text-xs font-bold mb-8 border border-teal-800/50">
+            <span class="pulse-dot"></span> DATOS EN TIEMPO REAL
+        </div>
+        <h1 class="text-6xl md:text-8xl font-extrabold mb-6 tracking-tight">
+            Analiza el impacto de la <span class="eco-gradient">contaminación</span>.
+        </h1>
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            Visualiza datos críticos sobre la calidad del aire, residuos plásticos y emisiones de CO2 para entender el estado de nuestro ecosistema.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+            <button onclick="startSimulation()" class="btn-eco text-slate-900 px-8 py-4 rounded-2xl font-bold">Explorar Datos Globales</button>
+            <button class="bg-slate-800 text-white px-8 py-4 rounded-2xl font-bold border border-slate-700 hover:bg-slate-700">Ver Reporte 2024</button>
+        </div>
+    </section>
+
+    <!-- Stats Grid -->
+    <section id="stats" class="max-w-7xl mx-auto px-8 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 group hover:border-teal-400/50 transition-all">
+                <div class="text-teal-400 text-3xl mb-6"><i class="fa-solid fa-wind"></i></div>
+                <h3 class="text-xl font-bold mb-4">Calidad del Aire</h3>
+                <p class="text-slate-400 mb-6">Monitoreo de partículas PM2.5 y niveles de ozono en metrópolis mundiales.</p>
+                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-teal-400 h-full w-[65%]"></div>
+                </div>
+                <p class="text-[10px] text-slate-500 mt-2 uppercase tracking-widest">Nivel de Alerta: Moderado</p>
+            </div>
+
+            <div class="glass-card p-8 group hover:border-teal-400/50 transition-all">
+                <div class="text-teal-400 text-3xl mb-6"><i class="fa-solid fa-droplet"></i></div>
+                <h3 class="text-xl font-bold mb-4">Plásticos en el Mar</h3>
+                <p class="text-slate-400 mb-6">Análisis de las toneladas de microplásticos afectando la biodiversidad marina.</p>
+                <div class="flex items-end gap-1 h-12">
+                    <div class="bg-slate-700 w-full h-[40%] rounded-t-sm"></div>
+                    <div class="bg-slate-700 w-full h-[60%] rounded-t-sm"></div>
+                    <div class="bg-teal-400 w-full h-[90%] rounded-t-sm"></div>
+                    <div class="bg-slate-700 w-full h-[75%] rounded-t-sm"></div>
+                </div>
+                <p class="text-[10px] text-slate-500 mt-2 uppercase tracking-widest">Tendencia: Creciente</p>
+            </div>
+
+            <div class="glass-card p-8 group hover:border-teal-400/50 transition-all">
+                <div class="text-teal-400 text-3xl mb-6"><i class="fa-solid fa-factory"></i></div>
+                <h3 class="text-xl font-bold mb-4">Huella de Carbono</h3>
+                <p class="text-slate-400 mb-6">Cálculo de emisiones industriales y su impacto en el calentamiento global.</p>
+                <div class="text-4xl font-extrabold text-white">419.7 <span class="text-sm font-normal text-slate-500">PPM</span></div>
+                <p class="text-[10px] text-slate-500 mt-2 uppercase tracking-widest">Concentración CO2 Atmosférico</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulador Funcional -->
+    <section id="simulador" class="max-w-5xl mx-auto px-8 py-20">
+        <div class="glass-card overflow-hidden border-teal-500/20">
+            <!-- Barra Superior del Sistema -->
+            <div class="bg-slate-900/50 p-4 border-b border-white/5 flex justify-between items-center">
+                <div class="flex gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                </div>
+                <span class="text-[10px] text-slate-500 font-mono tracking-widest">SYSTEM_MODULE_V.2.4</span>
+            </div>
+            
+            <div id="sim-content" class="p-12 text-center">
+                <div id="sim-initial">
+                    <div class="mb-8">
+                        <i class="fa-solid fa-microchip text-6xl text-teal-400/20"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-2">Simulador Climático Predictivo</h4>
+                    <p class="text-slate-400 text-sm mb-8">Selecciona una variable para proyectar el impacto ambiental en los próximos 10 años.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+                        <button onclick="runAnalysis('Deforestación')" class="p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-teal-400 transition-all text-sm font-bold">
+                            <i class="fa-solid fa-tree mr-2 text-teal-400"></i> Deforestación
+                        </button>
+                        <button onclick="runAnalysis('Emisiones CO2')" class="p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-teal-400 transition-all text-sm font-bold">
+                            <i class="fa-solid fa-smog mr-2 text-teal-400"></i> Emisiones CO2
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Estado de Carga -->
+                <div id="sim-loading" class="hidden py-10">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-400 mx-auto mb-6"></div>
+                    <p id="loading-text" class="text-teal-400 font-mono text-sm tracking-tighter">PROCESANDO DATOS...</p>
+                    <div class="w-64 bg-slate-800 h-1 mx-auto mt-6 rounded-full overflow-hidden">
+                        <div id="loading-progress" class="loading-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Resultado del Análisis -->
+                <div id="sim-result" class="hidden">
+                    <div class="text-teal-400 text-5xl mb-6"><i class="fa-solid fa-chart-line"></i></div>
+                    <h5 id="result-title" class="text-xl font-bold mb-4">Resultado del Análisis</h5>
+                    <div class="glass-card bg-teal-400/5 p-6 mb-8 inline-block text-left border-teal-400/20">
+                        <p id="result-desc" class="text-slate-300 text-sm leading-relaxed max-w-md"></p>
+                    </div>
+                    <br>
+                    <button onclick="resetSim()" class="text-teal-400 text-xs font-bold uppercase tracking-widest hover:underline">Reiniciar Simulador</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-8 py-12 border-t border-white/5 text-center">
+        <p class="text-slate-500 text-sm">
+            © 2024 Proyecto de Conciencia Ambiental. Desarrollado para análisis académico.
+        </p>
+    </footer>
+
+    <script>
+        function runAnalysis(type) {
+            const initial = document.getElementById('sim-initial');
+            const loading = document.getElementById('sim-loading');
+            const result = document.getElementById('sim-result');
+            const progress = document.getElementById('loading-progress');
+            const loadText = document.getElementById('loading-text');
+
+            initial.classList.add('hidden');
+            loading.classList.remove('hidden');
+            
+            // Simulación de carga
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    showResult(type);
+                } else {
+                    width += 5;
+                    progress.style.width = width + '%';
+                    if (width > 30) loadText.innerText = "SINCRONIZANDO SATÉLITES...";
+                    if (width > 70) loadText.innerText = "GENERANDO MAPA TÉRMICO...";
+                }
+            }, 100);
+        }
+
+        function showResult(type) {
+            const loading = document.getElementById('sim-loading');
+            const result = document.getElementById('sim-result');
+            const title = document.getElementById('result-title');
+            const desc = document.getElementById('result-desc');
+
+            loading.classList.add('hidden');
+            result.classList.remove('hidden');
+
+            title.innerText = `Impacto Proyectado: ${type}`;
+            
+            if (type === 'Deforestación') {
+                desc.innerText = "Si la tasa actual continúa, se estima una pérdida del 15% de la biodiversidad local en la próxima década, incrementando la temperatura regional en 1.2°C.";
+            } else {
+                desc.innerText = "Las emisiones descontroladas de CO2 podrían elevar la acidez oceánica en un 10%, afectando gravemente los arrecifes de coral y la cadena alimenticia marina.";
+            }
+        }
+
+        function resetSim() {
+            document.getElementById('sim-initial').classList.remove('hidden');
+            document.getElementById('sim-result').classList.add('hidden');
+            document.getElementById('loading-progress').style.width = '0%';
+            document.getElementById('loading-text').innerText = "PROCESANDO DATOS...";
+        }
+
+        function startSimulation() {
+            document.getElementById('simulador').scrollIntoView({behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
